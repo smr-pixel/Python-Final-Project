@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>My Events</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #286ec9;
+            text-align: center;
+        }
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .flashes li {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+        }
+        .event {
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 10px 0;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .event h2 {
+            margin-top: 0;
+            color: #333;
+        }
+        .event p {
+            margin: 5px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            color: white;
+            background-color: #286ec9;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #286ec9;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>My Events</h1>
+
+        <!-- Flash messages section -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <p><strong>Username:</strong> {{ user.name }}</p>
+        <p><strong>Email:</strong> {{ user.email }}</p>
+
+        {% if my_events %}
+            <div class="events-list">
+                {% for registration in my_events %}
+                    <div class="event">
+                        <h2>{{ registration.event_name }}</h2>
+                        <p><strong>Date:</strong> {{ registration.event_date }}</p>
+                        <p><strong>Location:</strong> {{ registration.event_location }}</p>
+                        <p><strong>Description:</strong> {{ registration.event_description }}</p>
+                        <p><strong>Capacity:</strong> {{ registration.event_capacity }}</p>
+                        <p><strong>Price:</strong> ${{ registration.event_price }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>You are not registered for any events.</p>
+        {% endif %}
+        <a href="{{ url_for('home') }}" class="btn">Return to Home</a>
+    </div>
+</body>
+</html>

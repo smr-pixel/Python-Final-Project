@@ -1,0 +1,109 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin-top: 50px;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #286ec9;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .flash-message {
+            margin-bottom: 15px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input[type="text"], input[type="date"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        button[type="submit"] {
+            padding: 10px 20px;
+            color: white;
+            background-color: #286ec9;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button[type="submit"]:hover {
+            background-color: #286ec9;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 20px;
+            color: white;
+            background-color: #6c757d;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+        }
+        a:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Create Event</h2>
+
+        <!-- Event Creation Form -->
+        <form action="{{ url_for('create_event') }}" method="POST">
+            <div class="form-group">
+                <label for="event_name">Event Name</label>
+                <input type="text" class="form-control" id="event_name" name="event_name" required>
+            </div>
+            <div class="form-group">
+                <label for="event_date">Event Date</label>
+                <input type="date" class="form-control" id="event_date" name="event_date" required>
+            </div>
+            <div class="form-group">
+                <label for="event_location">Event Location</label>
+                <input type="text" class="form-control" id="event_location" name="event_location" required>
+            </div>
+            <div class="form-group">
+                <label for="event_description">Event Description</label>
+                <textarea class="form-control" id="event_description" name="event_description" rows="3" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="event_capacity">Event Capacity</label>
+                <input type="number" class="form-control" id="event_capacity" name="event_capacity" required>
+            </div>
+            <div class="form-group">
+                <label for="event_price">Event Price</label>
+                <input type="number" class="form-control" id="event_price" name="event_price" step="0.01" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Create Event</button>
+        </form>
+        <a href="{{ url_for('home') }}" class="btn">Return to Home</a>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

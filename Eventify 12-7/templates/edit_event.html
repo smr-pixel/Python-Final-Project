@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Event</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #286ec9;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .flashes {
+            list-style-type: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .flashes li {
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        form {
+            margin: 20px 0;
+            display: flex;
+            flex-direction: column;
+        }
+        input[type="text"], input[type="date"], input[type="number"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            padding: 10px 20px;
+            color: white;
+            background-color: #286ec9;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+        input[type="submit"]:hover {
+            background-color: #286ec9;
+        }
+        p, a {
+            color: #333;
+            text-align: center;
+        }
+        a {
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Event</h1>
+
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for category, message in messages %}
+                        <li class="{{ category }}">{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+
+        <form method="post" action="{{ url_for('edit_event', event_id=event.id) }}">
+            <input type="text" name="event_name" value="{{ event.event_name }}" placeholder="Event Name" required><br>
+            <input type="date" name="event_date" value="{{ event.event_date }}" required><br>
+            <input type="text" name="event_location" value="{{ event.event_location }}" placeholder="Event Location" required><br>
+            <textarea name="event_description" placeholder="Event Description" required>{{ event.event_description }}</textarea><br>
+            <input type="number" name="event_capacity" value="{{ event.event_capacity }}" placeholder="Event Capacity" required><br>
+            <input type="number" step="0.01" name="event_price" value="{{ event.event_price }}" placeholder="Event Price" required><br>
+            <input type="submit" value="Update Event">
+        </form>
+        <a href="{{ url_for('events_page') }}" class="btn">Cancel</a>
+    </div>
+</body>
+</html>

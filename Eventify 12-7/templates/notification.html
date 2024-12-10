@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notifications</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 20px;
+        }
+        h1 {
+            color: #286ec9;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .notifications {
+            max-width: 800px;
+            margin: auto;
+        }
+        .alert {
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            color: white;
+            background-color: #286ec9;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #286ec9;
+        }
+    </style>
+</head>
+<body>
+    <div class="notifications">
+        <h1>Notifications</h1>
+        {% if notifications %}
+            {% for notification in notifications %}
+                <div class="alert alert-info">{{ notification }}</div>
+            {% endfor %}
+        {% else %}
+            <p>No notifications available</p>
+        {% endif %}
+        <a href="{{ url_for('home') }}" class="btn">Back to Home</a>
+    </div>
+</body>
+</html>

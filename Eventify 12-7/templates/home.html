@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+        }
+        header {
+            background-color: #286ec9;
+            color: white;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        header img {
+            border-radius: 50%;
+        }
+        header a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        header a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            padding: 20px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            color: white;
+            background-color: #286ec9;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+        }
+        .btn:hover {
+            background-color: #286ec9;
+        }
+        .student-links ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .student-links ul li {
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div>
+            <img src="/static/uploads/logo.png" width="100" height="100" alt="Logo">
+        </div>
+        <div>
+            {% if 'user_id' in session %}
+                <a href="{{ url_for('logout') }}">Logout</a>
+            {% else %}
+                <a href="{{ url_for('login') }}">Login/Sign Up</a>
+            {% endif %}
+        </div>
+    </header>
+    <div class="container">
+        <h1>Welcome to Eventify</h1>
+        <h1>Your Pitt event management system</h1>
+        <div class="mt-4">
+            {% if session['role'] == 'Event Manager' %}
+                <a href="{{ url_for('create_event') }}" class="btn">Create New Event</a>
+            {% else %}
+                <p>You need to be an Event Manager to create an event.</p>
+            {% endif %}
+        </div>
+
+        <form method="POST" action="{{ url_for('search') }}">
+            <label for="keyword">Search for Events:</label>
+            <input type="text" id="keyword" name="keyword" required>
+            <button type="submit">Search</button>
+        </form>
+
+
+        
+        <h2>View All Events</h2>
+        <a href="{{ url_for('events_page') }}" class="btn">Go to Events Page</a>
+        {% if 'user_id' in session and session['role'] == 'Student' %}
+            <h2>Student Links</h2>
+            <div class="student-links">
+                <ul>
+                    <li><a href="{{ url_for('my_events') }}" class="btn">View My Profile</a></li>
+                </ul>
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>

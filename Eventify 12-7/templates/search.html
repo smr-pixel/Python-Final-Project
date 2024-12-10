@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+        }
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 20px auto;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .card {
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 20px 0;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .card h2 {
+            margin: 0 0 10px;
+            color: #007bff;
+        }
+        .card p {
+            margin: 5px 0;
+            color: #555;
+        }
+        .btn-primary {
+            display: inline-block;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            text-align: center;
+            margin-top: 10px;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+        }
+        .back-button {
+            display: inline-block;
+            margin: 20px 0;
+            padding: 10px 20px;
+            color: #333;
+            background-color: #ddd;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            text-align: center;
+        }
+        .back-button:hover {
+            background-color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Search Results</h1>
+        {% if search_results %}
+            {% for event in search_results %}
+                <div class="card">
+                    <h2>{{ event.event_name }}</h2>
+                    <p><strong>Date:</strong> {{ event.event_date.strftime('%Y-%m-%d') }}</p>
+                    <p><strong>Location:</strong> {{ event.event_location }}</p>
+                    <p><strong>Description:</strong> {{ event.event_description }}</p>
+                    <p><strong>Capacity:</strong> {{ event.event_capacity }}</p>
+                    <p><strong>Price:</strong> ${{ event.event_price }}</p>
+                    
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No events found matching your query.</p>
+        {% endif %}
+        <button class="back-button" onclick="goBack()">Go Back</button>
+    </div>
+
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
+</body>
+</html>
